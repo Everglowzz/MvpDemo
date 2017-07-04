@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.everglow.mvpdemo.view.LoginActivity">
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="正在加载中...."
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:layout_marginTop="100dp"
+        android:layout_width="368dp"
+        android:layout_height="45dp"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="企业ID"/>
+
+        <EditText
+            android:id="@+id/et_company"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tv_company"
+            android:gravity="center"/>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+
+        android:layout_width="368dp"
+        android:layout_height="45dp"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="用户名"/>
+
+        <EditText
+            android:id="@+id/et_user"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tv_user"
+            android:gravity="center"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="368dp"
+        android:layout_height="45dp"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_pwd"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="密码"/>
+
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="180dp"
+            android:inputType="textPassword"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tv_pwd"
+            android:gravity="center"/>
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_submit"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:text="提交"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:layout_height="50dp"/>
+
+</LinearLayout>
