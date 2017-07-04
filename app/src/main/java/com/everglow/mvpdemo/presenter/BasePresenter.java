@@ -5,5 +5,9 @@ package com.everglow.mvpdemo.presenter;
  */
 
 public interface BasePresenter {
-    void start();
+
+    void onSubscribe();
+
+
+    void unSubscribe();
 }

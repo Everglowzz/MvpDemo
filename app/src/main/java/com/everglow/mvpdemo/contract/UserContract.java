@@ -3,23 +3,18 @@ package com.everglow.mvpdemo.contract;
 import com.everglow.mvpdemo.model.UserInfoBean;
 import com.everglow.mvpdemo.presenter.BasePresenter;
 
+import java.util.Map;
+
 /**
  * Created by EverGlow on 2017/6/29 9:44
  */
 
 public interface UserContract {
-    interface LoginView extends BaseView<Persenter>{
-        String getCompanyId();
 
-        String getUserName();
-
-        String getPassword();
-
+    interface LoginView extends BaseView<Presenter> {
         void showLoading();
 
         void hideLoading();
-
-        void cleanEdit();
 
         void toMainActivity(UserInfoBean user);
 
@@ -28,8 +23,9 @@ public interface UserContract {
         void showFailedError();
 
     }
-    interface  Persenter extends BasePresenter{
-        void Login();
+
+    interface Presenter extends BasePresenter {
+        void login(Map<String, String> map);
 
     }
 }

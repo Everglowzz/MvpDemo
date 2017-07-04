@@ -13,20 +13,21 @@ import com.everglow.mvpdemo.contract.UserContract;
 import com.everglow.mvpdemo.model.UserInfoBean;
 import com.everglow.mvpdemo.presenter.LoginPresenter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements UserContract.LoginView {
 
 
-
     /**
-    * 测试账号
-    * 企业ID 44444
-    * 账号   李媛abcd
-    * 密码   abc123
-    *
-    * */
+     * 测试账号
+     * 企业ID 44444
+     * 账号   李媛abcd
+     * 密码   abc123
+     */
     @Bind(R.id.tv_empty)
     TextView mTvEmpty;
     @Bind(R.id.tv_company)
@@ -43,39 +44,26 @@ public class LoginActivity extends AppCompatActivity implements UserContract.Log
     EditText mEtPwd;
     @Bind(R.id.tv_submit)
     TextView mTvSubmit;
-    UserContract.Persenter presenter;
+    UserContract.Presenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        new LoginPresenter(this);
+
+        new LoginPresenter(this).onSubscribe();
+
         mTvSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.start();
+                Map<String, String> map = new HashMap<>();
+                map.put("keynumber", "");
+                map.put("username", "");
+                map.put("password", "");
+                presenter.login(map);
             }
         });
-    }
-
-    @Override
-    public void setPresenter(UserContract.Persenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
-    public String getCompanyId() {
-        return mEtCompany.getText().toString().trim();
-    }
-
-    @Override
-    public String getUserName() {
-        return  mEtUser.getText().toString().trim();
-    }
-
-    @Override
-    public String getPassword() {
-        return mEtPwd.getText().toString().trim();
     }
 
     @Override
@@ -86,11 +74,6 @@ public class LoginActivity extends AppCompatActivity implements UserContract.Log
     @Override
     public void hideLoading() {
         mTvEmpty.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void cleanEdit() {
-        mEtPwd.setText("");
     }
 
     @Override
@@ -108,5 +91,16 @@ public class LoginActivity extends AppCompatActivity implements UserContract.Log
     @Override
     public void showFailedError() {
         Toast.makeText(getApplicationContext(), "网络链接错误", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.unSubscribe();
+    }
+
+    @Override
+    public void setPresenter(UserContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 }
