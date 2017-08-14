@@ -1,4 +1,4 @@
-package com.everglow.mvpdemo;
+package com.everglow.mvpdemo.application;
 import android.app.Application;
 
 import com.everglow.mvpdemo.config.LogInterceptor;
@@ -16,9 +16,11 @@ import okhttp3.OkHttpClient;
 
 public    class MyApplication extends Application   {
 
+    public static MyApplication app;
     @Override
     public void onCreate() {
         super.onCreate();
+        app = this;
         init();
     }
 

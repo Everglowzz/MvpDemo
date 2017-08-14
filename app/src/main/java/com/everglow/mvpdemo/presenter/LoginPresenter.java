@@ -1,13 +1,18 @@
 package com.everglow.mvpdemo.presenter;
 
-import com.everglow.mvpdemo.contract.UserContract;
+import android.content.Context;
+
+import com.everglow.mvpdemo.config.GlobalConfig;
+import com.everglow.mvpdemo.contract.IloginContract;
+import com.everglow.mvpdemo.httputils.RequestNetWork;
+import com.everglow.mvpdemo.httputils.listener.HttpCallBack;
 import com.everglow.mvpdemo.model.UserInfoBean;
 import com.everglow.mvpdemo.utils.Tools;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.https.HttpsUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -17,13 +22,17 @@ import okhttp3.Response;
  * Created by EverGlow on 2017/7/3 16:22
  */
 
-public class LoginPresenter implements UserContract.Presenter {
+public class LoginPresenter implements IloginContract.IloginPresenter {
 
-    UserContract.LoginView view;
+    IloginContract.IloginView view;
     boolean mUnSubscribe;
+    Context context;
+    private final RequestNetWork<UserInfoBean> mRqeuestNetWork;
 
-    public LoginPresenter(UserContract.LoginView view) {
+    public LoginPresenter(IloginContract.IloginView view) {
         this.view = view;
+        context = (Context) view;
+        mRqeuestNetWork = new RequestNetWork<>(context);
         view.setPresenter(this);
     }
 
@@ -38,10 +47,33 @@ public class LoginPresenter implements UserContract.Presenter {
     }
 
     @Override
-    public void login(Map<String, String> map) {
-        view.showLoading();
-        OkHttpUtils.post()
-                .url("http://yl.cgsoft.net/index.php?g=cgapik&m=index&a=do_login")
+    public void login(final HashMap<String, String> map) {
+
+        map.put("token", GlobalConfig.TOKEN);
+        map.put("password",Tools.encryptPasswordMD5(map.get("password")));
+        mRqeuestNetWork.request(map, GlobalConfig.LOGIN_URl, new HttpCallBack<UserInfoBean>() {
+            @Override
+            public void onSuccess(UserInfoBean result) {
+                if (mUnSubscribe) return;
+                view.toMainActivity(result);
+                view.toastMessage(result);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                if (mUnSubscribe) return;
+
+            }
+        },UserInfoBean.class,"正在登录..");
+
+/**
+        ----------------------------------上边是封装的网络求情----------------------------------------------------
+
+        ----------------------------------下边是最早的网络求情------------------------------------------------------
+*/
+
+     /*   OkHttpUtils.post()
+                .url(GlobalConfig.LOGIN_URl)
                 .addParams("keynumber", map.get("keynumber"))
                 .addParams("username", map.get("username"))
                 .addParams("token", "43378e1b35ae7858e82eba2b27ddefd7")
@@ -70,6 +102,6 @@ public class LoginPresenter implements UserContract.Presenter {
                         view.toastMessage(response);
                         view.hideLoading();
                     }
-                });
+                });*/
     }
 }

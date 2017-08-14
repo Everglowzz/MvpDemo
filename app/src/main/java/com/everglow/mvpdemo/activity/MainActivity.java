@@ -1,4 +1,4 @@
-package com.everglow.mvpdemo.view;
+package com.everglow.mvpdemo.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

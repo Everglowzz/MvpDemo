@@ -1,4 +1,4 @@
-package com.everglow.mvpdemo.view;
+package com.everglow.mvpdemo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.everglow.mvpdemo.R;
-import com.everglow.mvpdemo.contract.UserContract;
+import com.everglow.mvpdemo.contract.IloginContract;
 import com.everglow.mvpdemo.model.UserInfoBean;
 import com.everglow.mvpdemo.presenter.LoginPresenter;
 
@@ -19,7 +19,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity implements UserContract.LoginView {
+public class LoginActivity extends AppCompatActivity implements IloginContract.IloginView {
 
 
     /**
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements UserContract.Log
     EditText mEtPwd;
     @Bind(R.id.tv_submit)
     TextView mTvSubmit;
-    UserContract.Presenter presenter;
+    IloginContract.IloginPresenter mIloginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +57,11 @@ public class LoginActivity extends AppCompatActivity implements UserContract.Log
         mTvSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<String, String> map = new HashMap<>();
-                map.put("keynumber", "");
-                map.put("username", "");
-                map.put("password", "");
-                presenter.login(map);
+                HashMap<String, String> map = new HashMap<>();
+                map.put("keynumber",mEtCompany.getText().toString().trim());
+                map.put("username", mEtUser.getText().toString().trim());
+                map.put("password", mEtPwd.getText().toString().trim());
+                mIloginPresenter.login(map);
             }
         });
     }
@@ -96,11 +96,10 @@ public class LoginActivity extends AppCompatActivity implements UserContract.Log
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.unSubscribe();
+        mIloginPresenter.unSubscribe();
     }
 
-    @Override
-    public void setPresenter(UserContract.Presenter presenter) {
-        this.presenter = presenter;
+    public void setPresenter(IloginContract.IloginPresenter iloginPresenter) {
+        this.mIloginPresenter = iloginPresenter;
     }
 }

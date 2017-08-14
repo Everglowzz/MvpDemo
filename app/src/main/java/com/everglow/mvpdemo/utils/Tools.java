@@ -2,6 +2,7 @@ package com.everglow.mvpdemo.utils;
 
 
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
+
+import com.everglow.mvpdemo.R;
+import com.everglow.mvpdemo.application.MyApplication;
 
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
@@ -137,6 +142,9 @@ public class Tools  {
         return buffer.toString();
     }
 
+    public void makeToast(String s) {
+        Toast.makeText(MyApplication.app, s,Toast.LENGTH_SHORT).show();
+    }
     public static String encryptPasswordMD5(String password) {
         String result = null;
         try {

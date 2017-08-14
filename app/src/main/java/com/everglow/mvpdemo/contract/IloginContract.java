@@ -2,16 +2,18 @@ package com.everglow.mvpdemo.contract;
 
 import com.everglow.mvpdemo.model.UserInfoBean;
 import com.everglow.mvpdemo.presenter.BasePresenter;
+import com.everglow.mvpdemo.view.BaseView;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by EverGlow on 2017/6/29 9:44
  */
 
-public interface UserContract {
+public interface IloginContract {
 
-    interface LoginView extends BaseView<Presenter> {
+    interface IloginView extends BaseView<IloginPresenter> {
         void showLoading();
 
         void hideLoading();
@@ -24,8 +26,8 @@ public interface UserContract {
 
     }
 
-    interface Presenter extends BasePresenter {
-        void login(Map<String, String> map);
+    interface IloginPresenter extends BasePresenter {
+        void login(HashMap<String, String> map);
 
     }
 }

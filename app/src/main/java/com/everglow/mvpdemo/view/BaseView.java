@@ -1,4 +1,4 @@
-package com.everglow.mvpdemo.contract;
+package com.everglow.mvpdemo.view;
 
 /**
  * Created by EverGlow on 2017/6/29 9:14
