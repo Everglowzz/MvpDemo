@@ -4,19 +4,13 @@ import android.content.Context;
 
 import com.everglow.mvpdemo.config.GlobalConfig;
 import com.everglow.mvpdemo.contract.IloginContract;
-import com.everglow.mvpdemo.httputils.RequestNetWork;
-import com.everglow.mvpdemo.httputils.listener.HttpCallBack;
 import com.everglow.mvpdemo.model.UserInfoBean;
-import com.everglow.mvpdemo.utils.Tools;
-import com.google.gson.Gson;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
+import com.everglow.okhttputilspost.httputils.RequestNetWork;
+import com.everglow.okhttputilspost.httputils.listener.HttpCallBack;
+import com.everglow.okhttputilspost.utils.Tools;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * Created by EverGlow on 2017/7/3 16:22
@@ -50,7 +44,7 @@ public class LoginPresenter implements IloginContract.IloginPresenter {
     public void login(final HashMap<String, String> map) {
 
         map.put("token", GlobalConfig.TOKEN);
-        map.put("password",Tools.encryptPasswordMD5(map.get("password")));
+        map.put("password", Tools.encryptPasswordMD5(map.get("password")));
         mRqeuestNetWork.request(map, GlobalConfig.LOGIN_URl, new HttpCallBack<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean result) {
