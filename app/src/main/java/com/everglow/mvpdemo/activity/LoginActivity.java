@@ -24,9 +24,9 @@ public class LoginActivity extends AppCompatActivity implements IloginContract.I
 
     /**
      * 测试账号
-     * 企业ID 44444
-     * 账号   李媛abcd
-     * 密码   abc123
+     * 企业ID 888
+     * 账号   李媛abc
+     * 密码  111111
      */
     @Bind(R.id.tv_empty)
     TextView mTvEmpty;
@@ -80,17 +80,18 @@ public class LoginActivity extends AppCompatActivity implements IloginContract.I
     public void toMainActivity(UserInfoBean user) {
         if (user != null) {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         }
     }
 
     @Override
     public void toastMessage(UserInfoBean user) {
-        Toast.makeText(getApplicationContext(), user.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, user.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showFailedError() {
-        Toast.makeText(getApplicationContext(), "网络链接错误", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "网络链接错误", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -5,9 +5,9 @@ import android.content.Context;
 import com.everglow.mvpdemo.config.GlobalConfig;
 import com.everglow.mvpdemo.contract.IloginContract;
 import com.everglow.mvpdemo.model.UserInfoBean;
+import com.everglow.mvpdemo.utils.Tools;
 import com.everglow.okhttputilspost.httputils.RequestNetWork;
 import com.everglow.okhttputilspost.httputils.listener.HttpCallBack;
-import com.everglow.okhttputilspost.utils.Tools;
 
 import java.util.HashMap;
 
@@ -49,8 +49,8 @@ public class LoginPresenter implements IloginContract.IloginPresenter {
             @Override
             public void onSuccess(UserInfoBean result) {
                 if (mUnSubscribe) return;
-                view.toMainActivity(result);
                 view.toastMessage(result);
+                view.toMainActivity(result);
             }
 
             @Override
@@ -59,14 +59,13 @@ public class LoginPresenter implements IloginContract.IloginPresenter {
 
             }
         },UserInfoBean.class,"正在登录..");
-
 /**
         ----------------------------------上边是封装的网络求情----------------------------------------------------
 
         ----------------------------------下边是最早的网络求情------------------------------------------------------
 */
 
-     /*   OkHttpUtils.post()
+       /* OkHttpUtils.post()
                 .url(GlobalConfig.LOGIN_URl)
                 .addParams("keynumber", map.get("keynumber"))
                 .addParams("username", map.get("username"))
